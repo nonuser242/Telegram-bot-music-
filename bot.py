@@ -46,7 +46,7 @@ async def play_voice_chat(client, message):
             os.remove(output_file)
 
         ydl_opts = {
-            'format': 'bestaudio',
+            'format': 'best',
             'outtmpl': output_template,
             'postprocessors': [{
                 'key': 'FFmpegExtractAudio',
@@ -95,4 +95,4 @@ if __name__ == "__main__":
     call_py.start()
     import pyrogram
     pyrogram.idle()
-        
+    
