@@ -17,7 +17,7 @@ app = Client("my_music_bot", api_id=int(API_ID), api_hash=API_HASH, bot_token=BO
 @app.on_message(filters.command("start"))
 def start_command(client, message):
     message.reply_text(
-        "👋 Soo dhawoow! Bot-ka Music-ga ee Cloud-ka.\n"
+        "👋 Soo dhawoow! Bot-ka Music-ga ee Cloud-ka (Cookies Enabled).\n"
         "Qor magaca heesta ama link-ga si aan kuugu soo raadiyo:\n"
         "`/play [Magaca Heesta]`"
     )
@@ -50,6 +50,7 @@ async def play_audio(client, message):
                 'preferredcodec': 'mp3',
                 'preferredquality': '192',
             }],
+            'cookiefile': 'cookies.txt',
             'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36',
             'extractor_args': {
                 'youtube': {
