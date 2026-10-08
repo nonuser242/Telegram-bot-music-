@@ -1,2 +1,4 @@
 pyrogram
+pytgcalls
 yt-dlp
+TgCrypto
