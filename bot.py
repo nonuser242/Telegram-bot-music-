@@ -20,7 +20,7 @@ call_py = PyTgCalls(app)
 @app.on_message(filters.command("start"))
 def start_command(client, message):
     message.reply_text(
-        "👋 Soo dhawoow! Bot-ka Voice Chat-ka ee Cloud-ka (PyTgCalls).\n"
+        "👋 Soo dhawoow! Bot-ka Voice Chat-ka ee Cloud-ka.\n"
         "Ku dar bot-ka kooxdaada, fur Voice Chat-ka, kadibna qor:\n"
         "`/play [Magaca Heesta ama Link-ga]`"
     )
@@ -46,7 +46,7 @@ async def play_voice_chat(client, message):
             os.remove(output_file)
 
         ydl_opts = {
-            'format': 'bestaudio/best',
+            'format': 'bestaudio',
             'outtmpl': output_template,
             'postprocessors': [{
                 'key': 'FFmpegExtractAudio',
@@ -95,4 +95,4 @@ if __name__ == "__main__":
     call_py.start()
     import pyrogram
     pyrogram.idle()
-    
+        
