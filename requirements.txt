@@ -1,3 +1,2 @@
 pyrogram
-pytgcalls>=1.0.0
 yt-dlp
