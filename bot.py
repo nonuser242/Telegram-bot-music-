@@ -39,30 +39,31 @@ async def play_voice_chat(client, message):
         if not search_query.startswith("http"):
             search_query = f"ytsearch1:{search_query}"
 
-        output_template = os.path.join(DOWNLOAD_DIR, 'song')
-        output_file = os.path.join(DOWNLOAD_DIR, 'song.mp3')
+        output_file = os.path.join(DOWNLOAD_DIR, "song.mp3")
 
+        # Tirtir faylka hore haddii uu jiro
         if os.path.exists(output_file):
             os.remove(output_file)
 
         ydl_opts = {
-            'format': 'bestaudio/best',
-            'outtmpl': output_template,
+            'format': 'bestaudio/best',                    # ← Tani waa xalka ugu muhiimsan
+            'outtmpl': os.path.join(DOWNLOAD_DIR, 'song'), # without extension
             'postprocessors': [{
                 'key': 'FFmpegExtractAudio',
                 'preferredcodec': 'mp3',
                 'preferredquality': '192',
             }],
-            'cookiefile': 'cookies.txt',
+            'cookiefile': 'cookies.txt',                   # haddii aad leedahay cookies.txt
             'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36',
             'extractor_args': {
                 'youtube': {
-                    'player_client': ['web'],
+                    'player_client': ['android', 'web'],
                 }
             },
             'noplaylist': True,
-            'playlist_items': '1',
             'geo_bypass': True,
+            'quiet': True,
+            'no_warnings': True,
         }
 
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
@@ -96,4 +97,3 @@ if __name__ == "__main__":
     call_py.start()
     import pyrogram
     pyrogram.idle()
-    
