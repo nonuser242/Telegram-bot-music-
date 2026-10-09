@@ -46,7 +46,7 @@ async def play_voice_chat(client, message):
             os.remove(output_file)
 
         ydl_opts = {
-            'format': 'best',
+            'format': 'bestaudio/best',
             'outtmpl': output_template,
             'postprocessors': [{
                 'key': 'FFmpegExtractAudio',
@@ -57,10 +57,11 @@ async def play_voice_chat(client, message):
             'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36',
             'extractor_args': {
                 'youtube': {
-                    'player_client': ['android', 'web'],
+                    'player_client': ['web'],
                 }
             },
             'noplaylist': True,
+            'playlist_items': '1',
             'geo_bypass': True,
         }
 
