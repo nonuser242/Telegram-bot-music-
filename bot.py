@@ -41,33 +41,38 @@ async def play_voice_chat(client, message):
 
         output_file = os.path.join(DOWNLOAD_DIR, "song.mp3")
 
-        # Tirtir faylka hore haddii uu jiro
         if os.path.exists(output_file):
             os.remove(output_file)
 
         ydl_opts = {
-            'format': 'bestaudio/best',                    # ← Tani waa xalka ugu muhiimsan
-            'outtmpl': os.path.join(DOWNLOAD_DIR, 'song'), # without extension
+            'format': 'bestaudio[ext=m4a]/bestaudio/best',   # ugu fiican
+            'outtmpl': os.path.join(DOWNLOAD_DIR, 'song'),
             'postprocessors': [{
                 'key': 'FFmpegExtractAudio',
                 'preferredcodec': 'mp3',
                 'preferredquality': '192',
             }],
-            'cookiefile': 'cookies.txt',                   # haddii aad leedahay cookies.txt
+            # Cookie-ka ka saar haddii android client isticmaalayso
+            # 'cookiefile': 'cookies.txt',   ← ka saar haddii aadan u baahnayn
             'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36',
             'extractor_args': {
                 'youtube': {
-                    'player_client': ['android', 'web'],
+                    'player_client': ['web'],          # android ka saar
                 }
             },
             'noplaylist': True,
             'geo_bypass': True,
             'quiet': True,
             'no_warnings': True,
+            'ignoreerrors': True,
         }
 
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-            ydl.download([search_query])
+            info = ydl.extract_info(search_query, download=True)
+            
+            # Hubi inuu video yahay, channel ma aha
+            if 'entries' in info:
+                info = info['entries'][0]
 
         if os.path.exists(output_file):
             await status_msg.edit_text("🎙️ Waxaa lagu biirayaa Voice Chat-ka kooxda...")
